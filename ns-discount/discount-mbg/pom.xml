@@ -10,9 +10,9 @@
     </parent>
     <packaging>jar</packaging>
     <groupId>org.jasonper</groupId>
-    <artifactId>discount-repo</artifactId>
+    <artifactId>discount-mbg</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>discount-repo</name>
+    <name>discount-mbg</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

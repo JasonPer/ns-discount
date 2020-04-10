@@ -7,7 +7,7 @@
         <module>discount-admin</module>
         <module>discount-portal</module>
         <module>discount-common</module>
-        <module>discount-repo</module>
+        <module>discount-mbg</module>
         <module>discount-search</module>
         <module>discount-security</module>
     </modules>
@@ -31,8 +31,10 @@
         <java.version>1.8</java.version>
         <!-- 在properties中统一控制依赖包的版本，更清晰-->
         <discount-common.version>0.0.1-SNAPSHOT</discount-common.version>
-        <discount-repo.version>0.0.1-SNAPSHOT</discount-repo.version>
+        <discount-mbg.version>0.0.1-SNAPSHOT</discount-mbg.version>
         <discount-security.version>0.0.1-SNAPSHOT</discount-security.version>
+        <pagehelper-starter.version>1.2.10</pagehelper-starter.version>
+        <pagehelper.version>5.1.8</pagehelper.version>
         <druid.version>1.1.21</druid.version>
         <swagger2.version>2.7.0</swagger2.version>
         <mysql-connector.version>8.0.15</mysql-connector.version>
@@ -58,6 +60,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -68,17 +74,29 @@
                 <artifactId>discount-common</artifactId>
                 <version>${discount-common.version}</version>
             </dependency>
-            <!--ns-discount Jpa生成的仓库模块-->
+            <!--ns-discount mbg生成的仓库模块-->
             <dependency>
                 <groupId>org.jasonper</groupId>
-                <artifactId>discount-repo</artifactId>
-                <version>${discount-repo.version}</version>
+                <artifactId>discount-mbg</artifactId>
+                <version>${discount-mbg.version}</version>
             </dependency>
             <!--ns-discount 安全模块-->
             <dependency>
                 <groupId>org.jasonper</groupId>
                 <artifactId>discount-security</artifactId>
                 <version>${discount-security.version}</version>
+            </dependency>
+            <!--MyBatis分页插件starter-->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper-starter.version}</version>
+            </dependency>
+            <!--MyBatis分页插件-->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>${pagehelper.version}</version>
             </dependency>
             <!--alibaba Druid连接池-->
             <dependency>

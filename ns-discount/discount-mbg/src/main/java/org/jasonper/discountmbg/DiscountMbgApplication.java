@@ -1,13 +1,13 @@
-package org.jasonper.discountrepo;
+package org.jasonper.discountmbg;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DiscountRepoApplication {
+public class DiscountMbgApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DiscountRepoApplication.class, args);
+        SpringApplication.run(DiscountMbgApplication.class, args);
     }
 
 }
