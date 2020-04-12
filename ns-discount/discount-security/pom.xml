@@ -25,10 +25,6 @@
             <artifactId>discount-common</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jasonper</groupId>
-            <artifactId>discount-common</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
