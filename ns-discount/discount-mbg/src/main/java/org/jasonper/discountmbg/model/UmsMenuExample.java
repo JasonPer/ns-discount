@@ -415,6 +415,66 @@ public class UmsMenuExample {
             return (Criteria) this;
         }
 
+        public Criteria andSortIsNull() {
+            addCriterion("sort is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortIsNotNull() {
+            addCriterion("sort is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortEqualTo(Integer value) {
+            addCriterion("sort =", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortNotEqualTo(Integer value) {
+            addCriterion("sort <>", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortGreaterThan(Integer value) {
+            addCriterion("sort >", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortGreaterThanOrEqualTo(Integer value) {
+            addCriterion("sort >=", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortLessThan(Integer value) {
+            addCriterion("sort <", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortLessThanOrEqualTo(Integer value) {
+            addCriterion("sort <=", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortIn(List<Integer> values) {
+            addCriterion("sort in", values, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortNotIn(List<Integer> values) {
+            addCriterion("sort not in", values, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortBetween(Integer value1, Integer value2) {
+            addCriterion("sort between", value1, value2, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortNotBetween(Integer value1, Integer value2) {
+            addCriterion("sort not between", value1, value2, "sort");
+            return (Criteria) this;
+        }
+
         public Criteria andNameIsNull() {
             addCriterion("name is null");
             return (Criteria) this;
@@ -552,6 +612,66 @@ public class UmsMenuExample {
 
         public Criteria andIconNotBetween(String value1, String value2) {
             addCriterion("icon not between", value1, value2, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenIsNull() {
+            addCriterion("hidden is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenIsNotNull() {
+            addCriterion("hidden is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenEqualTo(Integer value) {
+            addCriterion("hidden =", value, "hidden");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenNotEqualTo(Integer value) {
+            addCriterion("hidden <>", value, "hidden");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenGreaterThan(Integer value) {
+            addCriterion("hidden >", value, "hidden");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenGreaterThanOrEqualTo(Integer value) {
+            addCriterion("hidden >=", value, "hidden");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenLessThan(Integer value) {
+            addCriterion("hidden <", value, "hidden");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenLessThanOrEqualTo(Integer value) {
+            addCriterion("hidden <=", value, "hidden");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenIn(List<Integer> values) {
+            addCriterion("hidden in", values, "hidden");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenNotIn(List<Integer> values) {
+            addCriterion("hidden not in", values, "hidden");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenBetween(Integer value1, Integer value2) {
+            addCriterion("hidden between", value1, value2, "hidden");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenNotBetween(Integer value1, Integer value2) {
+            addCriterion("hidden not between", value1, value2, "hidden");
             return (Criteria) this;
         }
     }

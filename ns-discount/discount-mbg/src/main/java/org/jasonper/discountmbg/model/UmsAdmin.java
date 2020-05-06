@@ -11,6 +11,9 @@ public class UmsAdmin implements Serializable {
     @ApiModelProperty(value = "用户名")
     private String username;
 
+    @ApiModelProperty(value = "密码")
+    private String password;
+
     @ApiModelProperty(value = "头像")
     private String icon;
 
@@ -48,6 +51,14 @@ public class UmsAdmin implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getIcon() {
@@ -114,6 +125,7 @@ public class UmsAdmin implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", username=").append(username);
+        sb.append(", password=").append(password);
         sb.append(", icon=").append(icon);
         sb.append(", email=").append(email);
         sb.append(", nickName=").append(nickName);

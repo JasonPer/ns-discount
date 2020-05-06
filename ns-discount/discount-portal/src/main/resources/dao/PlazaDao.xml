@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jasonper.discountportal.dao.PlazaDao">
+    <resultMap id="simpleList" type="org.jasonper.discountportal.domain.PostSimple">
+        <result column="id" property="id"/>
+        <result column="theme" property="theme"/>
+        <result column="content" property="content"/>
+        <result column="create_time" property="createTime"/>
+        <result column="player_name" property="playerName"/>
+        <result column="avatar" property="avatar"/>
+        <result column="name_zh" property="gameName"/>
+    </resultMap>
+
+    <resultMap id="gameCommunity" type="org.jasonper.discountportal.domain.TopGame">
+        <result column="id" property="gameId"/>
+        <result column="name_zh" property="nameZh"/>
+        <result column="ign" property="ign"/>
+        <result column="cover_url" property="coverUrl"/>
+    </resultMap>
+
+    <resultMap id="postDetailList" type="org.jasonper.discountportal.domain.PostDetail">
+        <result column="id" property="id"/>
+        <result column="theme" property="theme"/>
+        <result column="content" property="content"/>
+        <result column="create_time" property="createTime"/>
+        <result column="player_name" property="playerName"/>
+        <result column="avatar" property="avatar"/>
+        <result column="name_zh" property="gameName"/>
+        <collection property="commentDetailList" javaType="java.util.ArrayList" column="id"
+                    ofType="org.jasonper.discountportal.domain.CommentDetail" select="getCommentDetailByPostId"/>
+    </resultMap>
+
+    <resultMap id="commentDetailList" type="org.jasonper.discountportal.domain.CommentDetail">
+        <result column="id" property="commentId"/>
+        <result column="content" property="content"/>
+        <result column="from_player_id" property="playerId"/>
+        <result column="player_name" property="playerName"/>
+        <result column="avatar" property="avatar"/>
+        <result column="create_time" property="createTime"/>
+        <collection property="replyDetailList" javaType="java.util.ArrayList" column="id"
+                    ofType="org.jasonper.discountportal.domain.ReplyDetail" select="getReplyDetailByCommentId"/>
+    </resultMap>
+
+    <resultMap id="replyDetailList" type="org.jasonper.discountportal.domain.ReplyDetail">
+        <result column="id" property="replyId"/>
+        <result column="content" property="content"/>
+        <result column="from_player_id" property="playerId"/>
+        <result column="player_name" property="playerName"/>
+        <result column="avatar" property="avatar"/>
+        <result column="create_time" property="createTime"/>
+        <collection property="childrenReplyList" javaType="java.util.ArrayList" column="id"
+                    ofType="org.jasonper.discountportal.domain.ReplyDetail" select="getReplyDetailChildrenByReplyId"/>
+    </resultMap>
+
+    <select id="getGameCommunityByGameName" resultMap="gameCommunity">
+        SELECT
+            id,
+            name_zh,
+            ign,
+            cover_url
+        FROM
+            game_bases
+        WHERE
+            name_zh LIKE #{gameName}
+        OR
+            name_en LIKE #{gameName}
+    </select>
+    <select id="getReplyDetailChildrenByReplyId" resultMap="replyDetailList">
+        SELECT
+            aa.id,
+            aa.content,
+            aa.from_player_id,
+            b.player_name,
+            b.avatar,
+            aa.create_time
+        FROM
+            player_replys AS aa
+        LEFT JOIN
+            player_bases AS b ON aa.from_player_id = b.id
+        WHERE
+            aa.reply_id = #{id}
+    </select>
+
+    <select id="getReplyDetailByCommentId" resultMap="replyDetailList">
+        SELECT
+            ac.id,
+            ac.content,
+            ac.from_player_id,
+            b.player_name,
+            b.avatar,
+            ac.create_time
+        FROM
+            player_replys AS ac
+        LEFT JOIN
+            player_bases AS b ON ac.from_player_id = b.id
+        WHERE
+            ac.player_comment_id = #{id}
+        AND ac.reply_id = 0
+    </select>
+
+    <select id="getCommentDetailByPostId" resultMap="commentDetailList">
+        SELECT
+            a.id,
+            a.content,
+            a.from_player_id,
+            b.player_name,
+            b.avatar,
+            a.create_time
+        FROM
+            player_comments AS a
+        LEFT JOIN
+            player_bases AS b ON a.from_player_id = b.id
+        WHERE
+            a.post_id = #{id}
+    </select>
+    
+    <select id="getPostDetailListByPostId" resultMap="postDetailList">
+        SELECT
+            a.id,
+            a.theme,
+            a.content,
+            a.create_time,
+            b.player_name,
+            b.avatar,
+            c.name_zh
+        FROM
+            player_posts AS a
+        LEFT JOIN
+            player_bases AS b ON a.player_base_id = b.id
+        LEFT JOIN
+            game_bases AS c ON a.game_base_id = c.id
+        WHERE
+            a.id = #{postId}
+    </select>
+
+    <select id="getPostSimpleList" resultMap="simpleList">
+        SELECT
+            a.id,
+            a.theme,
+            a.content,
+            a.create_time,
+            b.player_name,
+            b.avatar,
+            c.name_zh
+        FROM
+            player_posts AS a
+        LEFT JOIN
+            player_bases AS b ON a.player_base_id = b.id
+        LEFT JOIN
+            game_bases AS c ON a.game_base_id = c.id
+        ORDER BY
+            a.create_time DESC
+    </select>
+
+    <select id="getPostSimpleListByGameId" resultMap="simpleList">
+        SELECT
+            a.id,
+            a.theme,
+            a.content,
+            a.create_time,
+            b.player_name,
+            b.avatar,
+            c.name_zh
+        FROM
+            player_posts AS a
+        LEFT JOIN
+            player_bases AS b ON a.player_base_id = b.id
+        LEFT JOIN
+            game_bases AS c ON a.game_base_id = c.id
+        WHERE
+            a.game_base_id = #{gameId}
+        ORDER BY
+            a.create_time DESC
+    </select>
+</mapper>

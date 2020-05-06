@@ -14,23 +14,23 @@ public class GameBases implements Serializable {
     @ApiModelProperty(value = "游戏中文名")
     private String nameZh;
 
-    @ApiModelProperty(value = "游戏简介")
-    private String introduction;
-
     @ApiModelProperty(value = "港区价格")
-    private String priceHk;
+    private Long code;
 
     @ApiModelProperty(value = "发行时间")
-    private String issueDate;
+    private Date issueDate;
+
+    @ApiModelProperty(value = "游戏类型")
+    private String tags;
 
     @ApiModelProperty(value = "游戏大小")
     private String gameSize;
 
-    @ApiModelProperty(value = "发行商")
-    private String publisher;
-
     @ApiModelProperty(value = "支持玩家人数")
     private String playerNum;
+
+    @ApiModelProperty(value = "ign评分")
+    private String ign;
 
     @ApiModelProperty(value = "官方中文：0不支持，1支持")
     private Integer supportZh;
@@ -40,6 +40,9 @@ public class GameBases implements Serializable {
 
     @ApiModelProperty(value = "封面图URL")
     private String coverUrl;
+
+    @ApiModelProperty(value = "游戏简介")
+    private String introduction;
 
     private static final long serialVersionUID = 1L;
 
@@ -67,28 +70,28 @@ public class GameBases implements Serializable {
         this.nameZh = nameZh;
     }
 
-    public String getIntroduction() {
-        return introduction;
+    public Long getCode() {
+        return code;
     }
 
-    public void setIntroduction(String introduction) {
-        this.introduction = introduction;
+    public void setCode(Long code) {
+        this.code = code;
     }
 
-    public String getPriceHk() {
-        return priceHk;
-    }
-
-    public void setPriceHk(String priceHk) {
-        this.priceHk = priceHk;
-    }
-
-    public String getIssueDate() {
+    public Date getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(String issueDate) {
+    public void setIssueDate(Date issueDate) {
         this.issueDate = issueDate;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
     public String getGameSize() {
@@ -99,20 +102,20 @@ public class GameBases implements Serializable {
         this.gameSize = gameSize;
     }
 
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
     public String getPlayerNum() {
         return playerNum;
     }
 
     public void setPlayerNum(String playerNum) {
         this.playerNum = playerNum;
+    }
+
+    public String getIgn() {
+        return ign;
+    }
+
+    public void setIgn(String ign) {
+        this.ign = ign;
     }
 
     public Integer getSupportZh() {
@@ -139,6 +142,14 @@ public class GameBases implements Serializable {
         this.coverUrl = coverUrl;
     }
 
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -148,15 +159,16 @@ public class GameBases implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", nameEn=").append(nameEn);
         sb.append(", nameZh=").append(nameZh);
-        sb.append(", introduction=").append(introduction);
-        sb.append(", priceHk=").append(priceHk);
+        sb.append(", code=").append(code);
         sb.append(", issueDate=").append(issueDate);
+        sb.append(", tags=").append(tags);
         sb.append(", gameSize=").append(gameSize);
-        sb.append(", publisher=").append(publisher);
         sb.append(", playerNum=").append(playerNum);
+        sb.append(", ign=").append(ign);
         sb.append(", supportZh=").append(supportZh);
         sb.append(", createTime=").append(createTime);
         sb.append(", coverUrl=").append(coverUrl);
+        sb.append(", introduction=").append(introduction);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

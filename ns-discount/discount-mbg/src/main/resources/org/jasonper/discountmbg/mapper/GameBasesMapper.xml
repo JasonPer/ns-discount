@@ -5,17 +5,18 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name_en" jdbcType="VARCHAR" property="nameEn" />
     <result column="name_zh" jdbcType="VARCHAR" property="nameZh" />
-    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
-    <result column="price_hk" jdbcType="VARCHAR" property="priceHk" />
-    <result column="issue_date" jdbcType="VARCHAR" property="issueDate" />
+    <result column="code" jdbcType="BIGINT" property="code" />
+    <result column="issue_date" jdbcType="TIMESTAMP" property="issueDate" />
+    <result column="tags" jdbcType="VARCHAR" property="tags" />
     <result column="game_size" jdbcType="VARCHAR" property="gameSize" />
-    <result column="publisher" jdbcType="VARCHAR" property="publisher" />
     <result column="player_num" jdbcType="VARCHAR" property="playerNum" />
+    <result column="ign" jdbcType="VARCHAR" property="ign" />
     <result column="support_zh" jdbcType="INTEGER" property="supportZh" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.jasonper.discountmbg.model.GameBases">
     <result column="cover_url" jdbcType="LONGVARCHAR" property="coverUrl" />
+    <result column="introduction" jdbcType="LONGVARCHAR" property="introduction" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -76,11 +77,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name_en, name_zh, introduction, price_hk, issue_date, game_size, publisher, player_num, 
-    support_zh, create_time
+    id, name_en, name_zh, code, issue_date, tags, game_size, player_num, ign, support_zh, 
+    create_time
   </sql>
   <sql id="Blob_Column_List">
-    cover_url
+    cover_url, introduction
   </sql>
   <select id="selectByExampleWithBLOBs" parameterType="org.jasonper.discountmbg.model.GameBasesExample" resultMap="ResultMapWithBLOBs">
     select
@@ -134,14 +135,16 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into game_bases (name_en, name_zh, introduction, 
-      price_hk, issue_date, game_size, 
-      publisher, player_num, support_zh, 
-      create_time, cover_url)
-    values (#{nameEn,jdbcType=VARCHAR}, #{nameZh,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, 
-      #{priceHk,jdbcType=VARCHAR}, #{issueDate,jdbcType=VARCHAR}, #{gameSize,jdbcType=VARCHAR}, 
-      #{publisher,jdbcType=VARCHAR}, #{playerNum,jdbcType=VARCHAR}, #{supportZh,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{coverUrl,jdbcType=LONGVARCHAR})
+    insert into game_bases (name_en, name_zh, code, 
+      issue_date, tags, game_size, 
+      player_num, ign, support_zh, 
+      create_time, cover_url, introduction
+      )
+    values (#{nameEn,jdbcType=VARCHAR}, #{nameZh,jdbcType=VARCHAR}, #{code,jdbcType=BIGINT}, 
+      #{issueDate,jdbcType=TIMESTAMP}, #{tags,jdbcType=VARCHAR}, #{gameSize,jdbcType=VARCHAR}, 
+      #{playerNum,jdbcType=VARCHAR}, #{ign,jdbcType=VARCHAR}, #{supportZh,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{coverUrl,jdbcType=LONGVARCHAR}, #{introduction,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="org.jasonper.discountmbg.model.GameBases">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -155,23 +158,23 @@
       <if test="nameZh != null">
         name_zh,
       </if>
-      <if test="introduction != null">
-        introduction,
-      </if>
-      <if test="priceHk != null">
-        price_hk,
+      <if test="code != null">
+        code,
       </if>
       <if test="issueDate != null">
         issue_date,
       </if>
+      <if test="tags != null">
+        tags,
+      </if>
       <if test="gameSize != null">
         game_size,
       </if>
-      <if test="publisher != null">
-        publisher,
-      </if>
       <if test="playerNum != null">
         player_num,
+      </if>
+      <if test="ign != null">
+        ign,
       </if>
       <if test="supportZh != null">
         support_zh,
@@ -182,6 +185,9 @@
       <if test="coverUrl != null">
         cover_url,
       </if>
+      <if test="introduction != null">
+        introduction,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="nameEn != null">
@@ -190,23 +196,23 @@
       <if test="nameZh != null">
         #{nameZh,jdbcType=VARCHAR},
       </if>
-      <if test="introduction != null">
-        #{introduction,jdbcType=VARCHAR},
-      </if>
-      <if test="priceHk != null">
-        #{priceHk,jdbcType=VARCHAR},
+      <if test="code != null">
+        #{code,jdbcType=BIGINT},
       </if>
       <if test="issueDate != null">
-        #{issueDate,jdbcType=VARCHAR},
+        #{issueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tags != null">
+        #{tags,jdbcType=VARCHAR},
       </if>
       <if test="gameSize != null">
         #{gameSize,jdbcType=VARCHAR},
       </if>
-      <if test="publisher != null">
-        #{publisher,jdbcType=VARCHAR},
-      </if>
       <if test="playerNum != null">
         #{playerNum,jdbcType=VARCHAR},
+      </if>
+      <if test="ign != null">
+        #{ign,jdbcType=VARCHAR},
       </if>
       <if test="supportZh != null">
         #{supportZh,jdbcType=INTEGER},
@@ -216,6 +222,9 @@
       </if>
       <if test="coverUrl != null">
         #{coverUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="introduction != null">
+        #{introduction,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -237,23 +246,23 @@
       <if test="record.nameZh != null">
         name_zh = #{record.nameZh,jdbcType=VARCHAR},
       </if>
-      <if test="record.introduction != null">
-        introduction = #{record.introduction,jdbcType=VARCHAR},
-      </if>
-      <if test="record.priceHk != null">
-        price_hk = #{record.priceHk,jdbcType=VARCHAR},
+      <if test="record.code != null">
+        code = #{record.code,jdbcType=BIGINT},
       </if>
       <if test="record.issueDate != null">
-        issue_date = #{record.issueDate,jdbcType=VARCHAR},
+        issue_date = #{record.issueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.tags != null">
+        tags = #{record.tags,jdbcType=VARCHAR},
       </if>
       <if test="record.gameSize != null">
         game_size = #{record.gameSize,jdbcType=VARCHAR},
       </if>
-      <if test="record.publisher != null">
-        publisher = #{record.publisher,jdbcType=VARCHAR},
-      </if>
       <if test="record.playerNum != null">
         player_num = #{record.playerNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ign != null">
+        ign = #{record.ign,jdbcType=VARCHAR},
       </if>
       <if test="record.supportZh != null">
         support_zh = #{record.supportZh,jdbcType=INTEGER},
@@ -263,6 +272,9 @@
       </if>
       <if test="record.coverUrl != null">
         cover_url = #{record.coverUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.introduction != null">
+        introduction = #{record.introduction,jdbcType=LONGVARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -274,15 +286,16 @@
     set id = #{record.id,jdbcType=BIGINT},
       name_en = #{record.nameEn,jdbcType=VARCHAR},
       name_zh = #{record.nameZh,jdbcType=VARCHAR},
-      introduction = #{record.introduction,jdbcType=VARCHAR},
-      price_hk = #{record.priceHk,jdbcType=VARCHAR},
-      issue_date = #{record.issueDate,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=BIGINT},
+      issue_date = #{record.issueDate,jdbcType=TIMESTAMP},
+      tags = #{record.tags,jdbcType=VARCHAR},
       game_size = #{record.gameSize,jdbcType=VARCHAR},
-      publisher = #{record.publisher,jdbcType=VARCHAR},
       player_num = #{record.playerNum,jdbcType=VARCHAR},
+      ign = #{record.ign,jdbcType=VARCHAR},
       support_zh = #{record.supportZh,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      cover_url = #{record.coverUrl,jdbcType=LONGVARCHAR}
+      cover_url = #{record.coverUrl,jdbcType=LONGVARCHAR},
+      introduction = #{record.introduction,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -292,12 +305,12 @@
     set id = #{record.id,jdbcType=BIGINT},
       name_en = #{record.nameEn,jdbcType=VARCHAR},
       name_zh = #{record.nameZh,jdbcType=VARCHAR},
-      introduction = #{record.introduction,jdbcType=VARCHAR},
-      price_hk = #{record.priceHk,jdbcType=VARCHAR},
-      issue_date = #{record.issueDate,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=BIGINT},
+      issue_date = #{record.issueDate,jdbcType=TIMESTAMP},
+      tags = #{record.tags,jdbcType=VARCHAR},
       game_size = #{record.gameSize,jdbcType=VARCHAR},
-      publisher = #{record.publisher,jdbcType=VARCHAR},
       player_num = #{record.playerNum,jdbcType=VARCHAR},
+      ign = #{record.ign,jdbcType=VARCHAR},
       support_zh = #{record.supportZh,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -313,23 +326,23 @@
       <if test="nameZh != null">
         name_zh = #{nameZh,jdbcType=VARCHAR},
       </if>
-      <if test="introduction != null">
-        introduction = #{introduction,jdbcType=VARCHAR},
-      </if>
-      <if test="priceHk != null">
-        price_hk = #{priceHk,jdbcType=VARCHAR},
+      <if test="code != null">
+        code = #{code,jdbcType=BIGINT},
       </if>
       <if test="issueDate != null">
-        issue_date = #{issueDate,jdbcType=VARCHAR},
+        issue_date = #{issueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tags != null">
+        tags = #{tags,jdbcType=VARCHAR},
       </if>
       <if test="gameSize != null">
         game_size = #{gameSize,jdbcType=VARCHAR},
       </if>
-      <if test="publisher != null">
-        publisher = #{publisher,jdbcType=VARCHAR},
-      </if>
       <if test="playerNum != null">
         player_num = #{playerNum,jdbcType=VARCHAR},
+      </if>
+      <if test="ign != null">
+        ign = #{ign,jdbcType=VARCHAR},
       </if>
       <if test="supportZh != null">
         support_zh = #{supportZh,jdbcType=INTEGER},
@@ -340,6 +353,9 @@
       <if test="coverUrl != null">
         cover_url = #{coverUrl,jdbcType=LONGVARCHAR},
       </if>
+      <if test="introduction != null">
+        introduction = #{introduction,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -347,27 +363,28 @@
     update game_bases
     set name_en = #{nameEn,jdbcType=VARCHAR},
       name_zh = #{nameZh,jdbcType=VARCHAR},
-      introduction = #{introduction,jdbcType=VARCHAR},
-      price_hk = #{priceHk,jdbcType=VARCHAR},
-      issue_date = #{issueDate,jdbcType=VARCHAR},
+      code = #{code,jdbcType=BIGINT},
+      issue_date = #{issueDate,jdbcType=TIMESTAMP},
+      tags = #{tags,jdbcType=VARCHAR},
       game_size = #{gameSize,jdbcType=VARCHAR},
-      publisher = #{publisher,jdbcType=VARCHAR},
       player_num = #{playerNum,jdbcType=VARCHAR},
+      ign = #{ign,jdbcType=VARCHAR},
       support_zh = #{supportZh,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      cover_url = #{coverUrl,jdbcType=LONGVARCHAR}
+      cover_url = #{coverUrl,jdbcType=LONGVARCHAR},
+      introduction = #{introduction,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="org.jasonper.discountmbg.model.GameBases">
     update game_bases
     set name_en = #{nameEn,jdbcType=VARCHAR},
       name_zh = #{nameZh,jdbcType=VARCHAR},
-      introduction = #{introduction,jdbcType=VARCHAR},
-      price_hk = #{priceHk,jdbcType=VARCHAR},
-      issue_date = #{issueDate,jdbcType=VARCHAR},
+      code = #{code,jdbcType=BIGINT},
+      issue_date = #{issueDate,jdbcType=TIMESTAMP},
+      tags = #{tags,jdbcType=VARCHAR},
       game_size = #{gameSize,jdbcType=VARCHAR},
-      publisher = #{publisher,jdbcType=VARCHAR},
       player_num = #{playerNum,jdbcType=VARCHAR},
+      ign = #{ign,jdbcType=VARCHAR},
       support_zh = #{supportZh,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

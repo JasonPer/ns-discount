@@ -1,7 +1,6 @@
 package org.jasonper.discountportal.service;
 
 import org.jasonper.discountmbg.model.PlayerBases;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

@@ -14,10 +14,10 @@ import java.util.Collection;
  * @date 2020/4/12 10:42
  * @description 玩家详情封装
  */
-public class PlayerDetails implements UserDetails {
+public class PlayerDetail implements UserDetails {
     private PlayerBases playerBases;
 
-    public PlayerDetails(PlayerBases playerBases) {
+    public PlayerDetail(PlayerBases playerBases) {
         this.playerBases = playerBases;
     }
 

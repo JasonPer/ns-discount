@@ -1,8 +1,6 @@
 package org.jasonper.discountportal.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.json.JSON;
-import cn.hutool.json.JSONUtil;
 import com.aliyuncs.CommonRequest;
 import com.aliyuncs.CommonResponse;
 import com.aliyuncs.DefaultAcsClient;
@@ -15,7 +13,7 @@ import org.jasonper.discountcommon.exception.Asserts;
 import org.jasonper.discountmbg.mapper.PlayerBasesMapper;
 import org.jasonper.discountmbg.model.PlayerBases;
 import org.jasonper.discountmbg.model.PlayerBasesExample;
-import org.jasonper.discountportal.domain.PlayerDetails;
+import org.jasonper.discountportal.domain.PlayerDetail;
 import org.jasonper.discountportal.service.PlayerBasesCacheService;
 import org.jasonper.discountportal.service.PlayerBasesService;
 import org.jasonper.discountsecurity.util.JwtTokenUtil;
@@ -145,8 +143,8 @@ public class PlayerBasesServiceImpl implements PlayerBasesService, UserDetailsSe
     public PlayerBases getCurrentPlayer() {
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication auth = context.getAuthentication();
-        PlayerDetails playerDetails = (PlayerDetails) auth.getPrincipal();
-        return playerDetails.getPlayerBases();
+        PlayerDetail playerDetail = (PlayerDetail) auth.getPrincipal();
+        return playerDetail.getPlayerBases();
     }
 
     @Override
@@ -162,7 +160,7 @@ public class PlayerBasesServiceImpl implements PlayerBasesService, UserDetailsSe
     public UserDetails loadUserByUsername(String playerName) {
         PlayerBases playerBases = getByPlayerName(playerName);
         if (playerBases != null){
-            return new PlayerDetails(playerBases);
+            return new PlayerDetail(playerBases);
         }
         throw new UsernameNotFoundException("用户名或者密码错误");
     }
@@ -209,7 +207,7 @@ public class PlayerBasesServiceImpl implements PlayerBasesService, UserDetailsSe
      * @param phone 手机号
      * @param authCode 验证码
      */
-    private void sendMessage(String phone,String authCode) {
+        private void sendMessage(String phone,String authCode) {
         DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAIDlWjcv4s8bGI", "H0ifT1P1EQ8ptQGKbnavO8w5YAxsHG");
         IAcsClient client = new DefaultAcsClient(profile);
 

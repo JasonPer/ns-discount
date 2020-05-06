@@ -8,6 +8,7 @@ class DiscountPortalApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
 
 }

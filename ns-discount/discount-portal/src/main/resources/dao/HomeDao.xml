@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jasonper.discountportal.dao.HomeDao">
+    <resultMap id="gameInfoDetailsMap" type="org.jasonper.discountportal.domain.GameInfoDetail"
+               extends="org.jasonper.discountmbg.mapper.GameBasesMapper.ResultMapWithBLOBs">
+        <collection property="gamePictures" columnPrefix="gp_"
+                    resultMap="org.jasonper.discountmbg.mapper.GamePicturesMapper.ResultMapWithBLOBs">
+        </collection>
+        <collection property="gameVideos" columnPrefix="gv_"
+                    resultMap="org.jasonper.discountmbg.mapper.GameVideosMapper.ResultMapWithBLOBs">
+        </collection>
+    </resultMap>
+
+    <resultMap id="gameAccess" type="org.jasonper.discountportal.domain.GameAssess">
+        <result column="id" property="id"/>
+        <result column="score" property="score"/>
+        <result column="game_assess" property="gameAssess"/>
+        <result column="player_name" property="playerName"/>
+        <result column="avatar" property="avatar"/>
+        <result column="name_zh" property="gameName"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="getGameInfoDetailsByGameId" resultMap="gameInfoDetailsMap">
+        SELECT
+            a.*,
+            b.id AS gp_id,
+            b.picture_url AS gp_picture_url,
+            b.game_base_id AS gp_game_base_id,
+            c.id AS gv_id,
+            c.video_url AS gv_video_url,
+            c.game_base_id AS gv_game_base_id
+        FROM
+            game_bases AS a
+        LEFT JOIN
+            game_pictures AS b ON a.id = b.game_base_id
+        LEFT JOIN
+            game_videos AS c ON a.id = b.game_base_id
+        WHERE
+            a.id = #{id}
+    </select>
+
+    <select id="getGameInfoDetailsByGameCode" resultMap="gameInfoDetailsMap">
+        SELECT
+            a.*,
+            b.id AS gp_id,
+            b.picture_url AS gp_picture_url,
+            b.game_base_id AS gp_game_base_id,
+            c.id AS gv_id,
+            c.video_url AS gv_video_url,
+            c.game_base_id AS gv_game_base_id
+        FROM
+            game_bases AS a
+        LEFT JOIN
+            game_pictures AS b ON a.id = b.game_base_id
+        LEFT JOIN
+            game_videos AS c ON a.id = b.game_base_id
+        WHERE
+            a.code = #{code}
+    </select>
+
+    <select id="getGameAssessByGameId" resultMap="gameAccess">
+        SELECT
+            a.id,
+            a.score,
+            a.game_assess,
+            c.player_name,
+            c.avatar,
+            b.name_zh,
+            a.create_time
+        FROM
+            game_scores AS a
+        LEFT JOIN
+            game_bases AS b ON a.game_base_id = b.id
+        LEFT JOIN
+            player_bases AS c ON a.player_base_id = c.id
+        WHERE
+            a.game_base_id = #{gameId}
+        ORDER BY
+            a.create_time DESC
+    </select>
+
+</mapper>

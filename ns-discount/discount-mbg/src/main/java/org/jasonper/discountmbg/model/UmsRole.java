@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class UmsRole implements Serializable {
     @ApiModelProperty(value = "主键")
-    private Integer id;
+    private Long id;
 
     @ApiModelProperty(value = "名称")
     private String name;
@@ -14,19 +14,24 @@ public class UmsRole implements Serializable {
     @ApiModelProperty(value = "描述")
     private String description;
 
+    @ApiModelProperty(value = "后台用户数量")
+    private Integer adminCount;
+
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
     @ApiModelProperty(value = "账号启用状态：0禁用1启用")
     private Integer status;
 
+    private Integer sort;
+
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -46,6 +51,14 @@ public class UmsRole implements Serializable {
         this.description = description;
     }
 
+    public Integer getAdminCount() {
+        return adminCount;
+    }
+
+    public void setAdminCount(Integer adminCount) {
+        this.adminCount = adminCount;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -62,6 +75,14 @@ public class UmsRole implements Serializable {
         this.status = status;
     }
 
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -71,8 +92,10 @@ public class UmsRole implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", description=").append(description);
+        sb.append(", adminCount=").append(adminCount);
         sb.append(", createTime=").append(createTime);
         sb.append(", status=").append(status);
+        sb.append(", sort=").append(sort);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

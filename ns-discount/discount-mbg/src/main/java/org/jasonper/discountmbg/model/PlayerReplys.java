@@ -14,7 +14,7 @@ public class PlayerReplys implements Serializable {
     @ApiModelProperty(value = "回复内容正文")
     private String content;
 
-    @ApiModelProperty(value = "外键，关联回复表id：如果是回复评论则为空，如果是回复回复则是reply_id")
+    @ApiModelProperty(value = "外键，关联回复表id：如果是回复评论则为0，如果是回复回复则是reply_id")
     private Long replyId;
 
     @ApiModelProperty(value = "外键，关联玩家id，来自于xx的回复")

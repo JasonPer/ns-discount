@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev #Ä¬ÈÏÎª¿ª·¢»·¾³
+    active: dev
 
 mybatis:
   mapper-locations:
@@ -8,14 +8,14 @@ mybatis:
     - classpath*:com/**/mapper/*.xml
 
 jwt:
-  tokenHeader: Authorization #JWT´æ´¢µÄÇëÇóÍ·
-  secret: discount-portal-secret #JWT¼Ó½âÃÜÊ¹ÓÃµÄÃÜÔ¿
-  expiration: 604800 #JWTµÄ³¬ÆÚÏŞÊ±¼ä(60*60*24*7)
-  tokenHead: Bearer #JWT¸ºÔØÖĞÄÃµ½¿ªÍ·
+  tokenHeader: Authorization
+  secret: discount-portal-secret
+  expiration: 604800
+  tokenHead: Bearer
 
 secure:
   ignored:
-    urls: #°²È«Â·¾¶°×Ãûµ¥
+    urls:
       - /swagger-ui.html
       - /swagger-resources/**
       - /swagger/**
@@ -28,17 +28,31 @@ secure:
       - /druid/**
       - /actuator/**
       - /sso/**
-      - /home/**
+      - /home/show/**
+      - /plaza/show/**
+      - /aliyun/oss/callback
 
-# ×Ô¶¨Òåredis key
+aliyun:
+  oss:
+    endpoint: shanghai # osså¯¹å¤–æœåŠ¡çš„è®¿é—®åŸŸå
+    accessKeyId: accessKeyI # è®¿é—®èº«ä»½éªŒè¯ä¸­ç”¨åˆ°ç”¨æˆ·æ ‡è¯†
+    accessKeySecret: secret # ç”¨æˆ·ç”¨äºåŠ å¯†ç­¾åå­—ç¬¦ä¸²å’Œossç”¨æ¥éªŒè¯ç­¾åå­—ç¬¦ä¸²çš„å¯†é’¥
+    bucketName: jasonper-soft # ossçš„å­˜å‚¨ç©ºé—´
+    policy:
+      expire: 300 # ç­¾åæœ‰æ•ˆæœŸ(S)
+    maxSize: 10 # ä¸Šä¼ æ–‡ä»¶å¤§å°(M)
+    callback: http://localhost:8085/aliyun/oss/callback # æ–‡ä»¶ä¸Šä¼ æˆåŠŸåçš„å›è°ƒåœ°å€
+    dir:
+      prefix: avatar/ # ä¸Šä¼ æ–‡ä»¶å¤¹è·¯å¾„å‰ç¼€
+
 redis:
   database: ns_discount
   key:
     authCode: 'ums:authCode'
     player: 'ums:player'
   expire:
-    authCode: 90 # ÑéÖ¤Âë³¬ÆÚÊ±¼ä
-    common: 86400 # 24Ğ¡Ê±
+    authCode: 90
+    common: 86400
 
 
 

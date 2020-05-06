@@ -3,6 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>org.jasonper</groupId>
+    <artifactId>ns-discount</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>  <!--父模块打包类型必须为pom-->
+
     <modules>
         <module>discount-admin</module>
         <module>discount-portal</module>
@@ -18,18 +23,15 @@
         <version>2.2.6.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <packaging>pom</packaging>  <!--父模块打包类型必须为pom-->
-    <groupId>org.jasonper</groupId>
-    <artifactId>ns-discount</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>ns-discount</name>
-    <description>Demo project for Spring Boot</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <!-- 在properties中统一控制依赖包的版本，更清晰-->
+        <skipTests>true</skipTests>
+        <docker.host>http://47.103.69.17/:2375</docker.host>
+        <docker.maven.plugin.version>1.1.0</docker.maven.plugin.version>
         <discount-common.version>0.0.1-SNAPSHOT</discount-common.version>
         <discount-mbg.version>0.0.1-SNAPSHOT</discount-mbg.version>
         <discount-security.version>0.0.1-SNAPSHOT</discount-security.version>
@@ -44,6 +46,7 @@
         <spring-data-commons.version>2.2.6.RELEASE</spring-data-commons.version>
         <jjwt.version>0.9.0</jjwt.version>
         <aliyun-java-sdk-core.version>4.0.3</aliyun-java-sdk-core.version>
+        <aliyun-oss.version>3.8.0</aliyun-oss.version>
     </properties>
 
     <dependencies>
@@ -165,6 +168,12 @@
                 <groupId>com.aliyun</groupId>
                 <artifactId>aliyun-java-sdk-core</artifactId>
                 <version>${aliyun-java-sdk-core.version}</version>
+            </dependency>
+            <!-- 阿里云OSS -->
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${aliyun-oss.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

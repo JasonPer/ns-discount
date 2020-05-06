@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="org.jasonper.discountmbg.model.UmsAdmin">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, username, icon, email, nick_name, note, create_time, login_time, status
+    id, username, password, icon, email, nick_name, note, create_time, login_time, status
   </sql>
   <select id="selectByExample" parameterType="org.jasonper.discountmbg.model.UmsAdminExample" resultMap="BaseResultMap">
     select
@@ -107,12 +108,14 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ums_admin (username, icon, email, 
-      nick_name, note, create_time, 
-      login_time, status)
-    values (#{username,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{nickName,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{loginTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER})
+    insert into ums_admin (username, password, icon, 
+      email, nick_name, note, 
+      create_time, login_time, status
+      )
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{loginTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="org.jasonper.discountmbg.model.UmsAdmin">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -122,6 +125,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="username != null">
         username,
+      </if>
+      <if test="password != null">
+        password,
       </if>
       <if test="icon != null">
         icon,
@@ -148,6 +154,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
       </if>
       <if test="icon != null">
         #{icon,jdbcType=VARCHAR},
@@ -187,6 +196,9 @@
       <if test="record.username != null">
         username = #{record.username,jdbcType=VARCHAR},
       </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
       <if test="record.icon != null">
         icon = #{record.icon,jdbcType=VARCHAR},
       </if>
@@ -217,6 +229,7 @@
     update ums_admin
     set id = #{record.id,jdbcType=BIGINT},
       username = #{record.username,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
       icon = #{record.icon,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       nick_name = #{record.nickName,jdbcType=VARCHAR},
@@ -233,6 +246,9 @@
     <set>
       <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="icon != null">
         icon = #{icon,jdbcType=VARCHAR},
@@ -261,6 +277,7 @@
   <update id="updateByPrimaryKey" parameterType="org.jasonper.discountmbg.model.UmsAdmin">
     update ums_admin
     set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
       icon = #{icon,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       nick_name = #{nickName,jdbcType=VARCHAR},
